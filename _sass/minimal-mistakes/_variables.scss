@@ -18,6 +18,12 @@ $sans-serif: -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI",
   "Helvetica Neue", "Lucida Grande", Arial, sans-serif !default;
 $monospace: Monaco, Consolas, "Lucida Console", monospace !default;
 
+$base-font: 'PT Serif', serif;
+$heading-font: 'PT Sans Narrow', sans-serif;
+$code-font: Monaco, "Courier New", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", monospace;
+$alt-font: $base-font;
+
+
 /* sans serif typefaces */
 $sans-serif-narrow: $sans-serif !default;
 $helvetica: Helvetica, "Helvetica Neue", Arial, sans-serif !default;
