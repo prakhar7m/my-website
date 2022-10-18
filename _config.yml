@@ -125,7 +125,7 @@ collections:
 # _recipes
   - scope:
       path: ""
-      type: recipes
+      type: blog
     values:
       layout: single
       author_profile: true
