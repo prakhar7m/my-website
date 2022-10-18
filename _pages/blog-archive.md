@@ -1,7 +1,8 @@
 ---
-title: "Blog"
 layout: collection
-permalink: /blog/
+title: "Blog"
 collection: blog
+permalink: /blog/
 author_profile: false
 ---
+
