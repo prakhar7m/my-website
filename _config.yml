@@ -122,3 +122,12 @@ collections:
     output: true
     permalink: /:collection/:path/
   
+# _recipes
+  - scope:
+      path: ""
+      type: recipes
+    values:
+      layout: single
+      author_profile: true
+      share: true
+      comments: true
