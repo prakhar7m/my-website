@@ -1,8 +1,8 @@
 ---
+title: Blog
 layout: collection
-title: "Blog"
-collection: blog
 permalink: /blog/
-author_profile: false
+collection: blog
+entries_layout: list
 ---
 
