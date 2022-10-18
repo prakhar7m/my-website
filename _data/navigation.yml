@@ -1,7 +1,7 @@
 main:
   - title: "Projects"
     url: /projects
-  - title: "Blog"
+  - title: "Categories"
     url: /collection-archive/
   - title: "About"
     url: /about/ 
