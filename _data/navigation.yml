@@ -9,4 +9,5 @@ main:
     url: /blog/
   - title: "About"
     url: /about/
-  
+  - title: "Sample Collections"
+    url: /collection-archive/
