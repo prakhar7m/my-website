@@ -1,11 +1,8 @@
 main:
-  - title: "Posts"
-    url: /posts/
-  - title: "Categories"
-    url: /categories/
   - title: "Projects"
-    url: /projects/
-  - title: "About"
-    url: /about/
+    url: /projects
   - title: "Blog"
     url: /collection-archive/
+  - title: "About"
+    url: /about/ 
+   
