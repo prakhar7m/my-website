@@ -9,7 +9,7 @@
 $doc-font-size: 14.5 !default;
 
 /* paragraph indention */
-$paragraph-indent: true !default; // true, false (default)
+$paragraph-indent: false !default; // true, false (default)
 $indent-var: 1.3em !default;
 $serif: "PT Serif", Georgia, Times, serif;
 $sans-serif-narrow: "PT Sans Narrow", -apple-system, BlinkMacSystemFont,
@@ -31,9 +31,9 @@ $bodoni: "Bodoni MT", serif !default;
 $calisto: "Calisto MT", serif !default;
 $garamond: Garamond, serif !default;
 
-$global-font-family: $serif;
+$global-font-family: "PT Serif";
 $header-font-family: $sans-serif-narrow;
-$caption-font-family: $serif;
+$caption-font-family: "PT Serif";
 
 /* type scale */
 $type-size-1: 2.441em !default; // ~39.056px
