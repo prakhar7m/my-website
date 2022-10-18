@@ -1,6 +1,6 @@
 ---
 title: "Projects"
-permalink: /tags/
+permalink: /projects/
 layout: categories
 author_profile: false
 ---
