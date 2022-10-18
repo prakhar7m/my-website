@@ -1,6 +1,8 @@
 ---
-title: "Projects"
+title: Projects
+layout: collection
 permalink: /projects/
-layout: posts
-author_profile: false
+collection: projects
+entries_layout: list
+classes: wide
 ---
