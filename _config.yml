@@ -115,3 +115,10 @@ category_archive:
 projects_archive:
   type: liquid
   path: /projects/
+  
+collections:
+ 
+  blog:
+    output: true
+    permalink: /:collection/:path/
+  
