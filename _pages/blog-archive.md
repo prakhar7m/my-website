@@ -1,8 +1,6 @@
-defaults:
-  # _pages
-  - scope:
-      path: "/blog/"
-      type: pages
-    values:
-      layout: single
-      author_profile: true
+---
+title: "Blog"
+permalink: /blog/
+layout: single
+author_profile: false
+---
