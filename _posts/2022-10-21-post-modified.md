@@ -48,7 +48,7 @@ artwork %>%
   labs(y = 'Medium(ignoring "on ..")',
        x = "# of pieces")
 ```
-<img src="{{site.baseurl | prepend: site.url}}images/tate/unnamed-chunk-4-1.png.png" alt="# of pieces" />
+<img src="{{site.baseurl | prepend: site.url}}images/tate/unnamed-chunk-4-1.png" alt="# of pieces" />
 
 ```ruby
 artwork%>%
