@@ -1,13 +1,14 @@
 ---
-layout: post
 title: "Analyzing Art Collections at Tate Art Museum in R"
 description: "Description"
-output: html_document
-category: [r, Data Analysis]
-tags: [r, statistics]
-comments: false
+date: 2019-04-18T15:34:30-04:00
+categories:
+  - r
+  - Data Analysis
+tags:
+  - r
+  - statistics
 ---
-
 Tate Modern is an gallery located in London. It is one of the largest museums of modern and contemporary art in the world.
 
 ![center](/assets/images/tate/tate_modern.jpg)
