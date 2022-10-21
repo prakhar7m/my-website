@@ -12,7 +12,7 @@ tags:
 Tate Modern is an art gallery located in London. It is one of the largest museums of modern and contemporary art in the world.
 
 
-![My helpful screenshot](https://prakhar7m.github.io/my-website/assets/images/tate-modern.png)
+![My helpful screenshot](https://github.com/prakhar7m/my-website/blob/main/assets/images/tate-modern.png)
 
 ```ruby
 knitr::opts_chunk$set(echo = TRUE)
