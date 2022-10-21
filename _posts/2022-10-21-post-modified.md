@@ -11,7 +11,7 @@ tags:
 ---
 Tate Modern is an gallery located in London. It is one of the largest museums of modern and contemporary art in the world.
 
-![center](/assets/images/tate/tate_modern.jpg)
+![Tate Gallery](/assets/tate/tate-modern.jpg)
 
 ```ruby
 knitr::opts_chunk$set(echo = TRUE)
