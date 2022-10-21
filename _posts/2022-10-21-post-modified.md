@@ -48,6 +48,7 @@ artwork %>%
   labs(y = 'Medium(ignoring "on ..")',
        x = "# of pieces")
 ```
+<img src="{{site.baseurl | prepend: site.url}}images/tate/unnamed-chunk-4-1.png.png" alt="# of pieces" />
 
 ```ruby
 artwork%>%
@@ -58,6 +59,7 @@ artwork%>%
   ggplot(aes(n, artist, fill=medium))+
   geom_col()
 ```
+<img src="{{site.baseurl | prepend: site.url}}images/tate/unnamed-chunk-5-1.png" alt="medium" />
 
 ```ruby
 by_decade_medium <- artwork %>%
@@ -77,6 +79,7 @@ by_decade_medium <- artwork %>%
   ggplot(aes(decade, n , fill=medium))+
   geom_area()
 ```
+<img src="{{site.baseurl | prepend: site.url}}images/tate/unnamed-chunk-7-1.png" alt="medium" />
 
 ```ruby
 by_decade_medium%>%
@@ -89,6 +92,7 @@ by_decade_medium%>%
        y= "% of Tate Modern pieces",
        fill = "Medium(without on..)")
 ```
+<img src="{{site.baseurl | prepend: site.url}}images/tate/unnamed-chunk-8-1.png" alt="medium" />
 
 ```ruby
 by_decade_medium%>%
@@ -103,6 +107,7 @@ by_decade_medium%>%
        y= "% of Tate Modern pieces",
        fill = "Medium(without on..)")
 ```
+<img src="{{site.baseurl | prepend: site.url}}images/tate/unnamed-chunk-9-1.png" alt="medium" />
 
 ```ruby
 artwork_size<-artwork %>%
@@ -118,6 +123,7 @@ artwork_size%>%
   scale_x_log10(labels = comma)+
   labs(x="Area(square metres")
 ```
+<img src="{{site.baseurl | prepend: site.url}}images/tate/unnamed-chunk-10-1.png" alt="medium" />
 
 ```ruby
 artwork_size%>%
@@ -130,6 +136,7 @@ artwork_size%>%
        y="What are typical shapes of Tate Artwork?",
        subtitle = "Red lines show 3:4 and 4:3 ratios")
 ```
+<img src="{{site.baseurl | prepend: site.url}}images/tate/unnamed-chunk-11-1.png" alt="medium" />
 
 ```ruby
 artwork_size%>%
@@ -146,6 +153,7 @@ artwork_size%>%
   ggplot(aes(decade,pct, fill=shape))+
   geom_area()
 ```
+<img src="{{site.baseurl | prepend: site.url}}images/tate/unnamed-chunk-12-1.png" alt="medium" />
 
 ```ruby
 size_by_decade<- artwork_size%>%
@@ -162,6 +170,7 @@ size_by_decade%>%
   labs(x="decade",
        y="median ratio(width/height")
 ```
+<img src="{{site.baseurl | prepend: site.url}}images/tate/unnamed-chunk-13-1.png" alt="medium" />
 
 ```ruby
 size_by_decade%>%
@@ -171,6 +180,7 @@ size_by_decade%>%
   labs(x="decade",
        y="median area in metres^2 ")
 ```
+<img src="{{site.baseurl | prepend: site.url}}images/tate/unnamed-chunk-14-1.png" alt="medium" />
 
 ```ruby
 artwork_size%>%
@@ -199,6 +209,7 @@ artwork_size %>%
        title = "What aspect ratio do artists work in?",
        subtitle = "For the 25 most common artists in the Tate")
 ```
+<img src="{{site.baseurl | prepend: site.url}}images/tate/unnamed-chunk-15-1.png" alt="medium" />
 
 ```ruby
 library(ggridges)
@@ -218,3 +229,4 @@ artwork_size %>%
        title = "What aspect ratio do artists work in?",
        subtitle = "For the 25 most common artists in the Tate")
 ```
+<img src="{{site.baseurl | prepend: site.url}}images/tate/unnamed-chunk-16-1.png" alt="medium" />
