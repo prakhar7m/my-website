@@ -31,12 +31,11 @@ artwork<-data$artwork %>%
   filter(artist != "Turner, Joseph Mallord William")%>%
   clean_names()
 
-
 artists<-data$artists %>%
   clean_names()
 ```
 
-```{r}
+```ruby
 artwork %>%
   separate(medium, c("medium", "surface"), sep = " on ",
            fill = "right", extra = "merge")%>%
@@ -48,10 +47,9 @@ artwork %>%
   geom_col() +
   labs(y = 'Medium(ignoring "on ..")',
        x = "# of pieces")
-
 ```
 
-```{r}
+```ruby
 artwork%>%
   filter(fct_lump(artist, 16)!= 'Other')%>%
   mutate(medium = fct_lump(medium,11))%>%
@@ -61,7 +59,7 @@ artwork%>%
   geom_col()
 ```
 
-```{r}
+```ruby
 by_decade_medium <- artwork %>%
   separate(medium, c("medium", "surface"), sep = " on ",
            fill = "right", extra = "merge")%>%
@@ -72,16 +70,15 @@ by_decade_medium <- artwork %>%
   group_by(decade)%>%
   mutate(pct=n/sum(n))%>%
   ungroup()
-
 ```
 
-```{r}
+```ruby
  by_decade_medium%>%
   ggplot(aes(decade, n , fill=medium))+
   geom_area()
 ```
 
-```{r}
+```ruby
 by_decade_medium%>%
   filter(!is.na(medium))%>%
   mutate(medium=fct_reorder(medium,n,sum))%>%
@@ -93,7 +90,7 @@ by_decade_medium%>%
        fill = "Medium(without on..)")
 ```
 
-```{r}
+```ruby
 by_decade_medium%>%
   filter(!is.na(medium))%>%
   mutate(medium=fct_reorder(medium,pct,sum, .desc = TRUE))%>%
@@ -107,7 +104,7 @@ by_decade_medium%>%
        fill = "Medium(without on..)")
 ```
 
-```{r}
+```ruby
 artwork_size<-artwork %>%
   filter(!is.na(units),
          !is.na(height),
@@ -122,7 +119,7 @@ artwork_size%>%
   labs(x="Area(square metres")
 ```
 
-```{r}
+```ruby
 artwork_size%>%
   filter(ratio>.2, ratio<5)%>%
   ggplot(aes(ratio))+
@@ -134,7 +131,7 @@ artwork_size%>%
        subtitle = "Red lines show 3:4 and 4:3 ratios")
 ```
 
-```{r}
+```ruby
 artwork_size%>%
   mutate(shape= case_when(
     ratio > 1.05 ~ "Landscape",
@@ -148,10 +145,9 @@ artwork_size%>%
   mutate(pct=n/sum(n))%>%
   ggplot(aes(decade,pct, fill=shape))+
   geom_area()
-
 ```
 
-```{r}
+```ruby
 size_by_decade<- artwork_size%>%
   group_by(decade=round(year,-1))%>%
   summarize(median_ratio=median(ratio),
@@ -165,10 +161,9 @@ size_by_decade%>%
   geom_point(aes(size=n))+
   labs(x="decade",
        y="median ratio(width/height")
-
 ```
 
-```{r}
+```ruby
 size_by_decade%>%
   ggplot(aes(decade,median_area))+
   geom_line()+
@@ -177,7 +172,7 @@ size_by_decade%>%
        y="median area in metres^2 ")
 ```
 
-```{r}
+```ruby
 artwork_size%>%
   group_by(artist)%>%
   summarize(n_pieces=n(),
@@ -203,10 +198,9 @@ artwork_size %>%
        y = "",
        title = "What aspect ratio do artists work in?",
        subtitle = "For the 25 most common artists in the Tate")
-
 ```
 
-```{r}
+```ruby
 library(ggridges)
 artwork_size %>%
   extract(medium, "medium_on", " on (.*)", remove = FALSE) %>%
