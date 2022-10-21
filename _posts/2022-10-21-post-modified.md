@@ -13,7 +13,7 @@ Tate Modern is an gallery located in London. It is one of the largest museums of
 
 ![center](/assets/images/tate/tate_modern.jpg)
 
-```{r}
+```ruby
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(tidytuesdayR)
@@ -22,11 +22,11 @@ library(janitor)
 theme_set(theme_light())
 ```
 
-```{r}
+```ruby
 data <- tt_load("2021-01-12")
 ```
 
-```{r}
+```ruby
 artwork<-data$artwork %>%
   filter(artist != "Turner, Joseph Mallord William")%>%
   clean_names()
