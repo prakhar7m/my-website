@@ -1,13 +1,16 @@
 ---
-title: "R Notebook"
-output: html_notebook
-editor_options: 
-  chunk_output_type: inline
+layout: post
+title: "Analyzing Art Collections at Tate Art Museum in R"
+description: "Description"
+output: html_document
+category: [r, Data Analysis]
+tags: [r, statistics]
+comments: false
 ---
 
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+Tate Modern is an gallery located in London. It is one of the largest museums of modern and contemporary art in the world.
 
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+![center](/assets/images/tate/tate_modern.jpg)
 
 ```{r}
 knitr::opts_chunk$set(echo = TRUE)
@@ -18,22 +21,19 @@ library(janitor)
 theme_set(theme_light())
 ```
 
-
 ```{r}
 data <- tt_load("2021-01-12")
 ```
-
 
 ```{r}
 artwork<-data$artwork %>%
   filter(artist != "Turner, Joseph Mallord William")%>%
   clean_names()
-  
+
 
 artists<-data$artists %>%
   clean_names()
 ```
-
 
 ```{r}
 artwork %>%
@@ -50,7 +50,6 @@ artwork %>%
 
 ```
 
-
 ```{r}
 artwork%>%
   filter(fct_lump(artist, 16)!= 'Other')%>%
@@ -60,7 +59,6 @@ artwork%>%
   ggplot(aes(n, artist, fill=medium))+
   geom_col()
 ```
-
 
 ```{r}
 by_decade_medium <- artwork %>%
@@ -73,16 +71,14 @@ by_decade_medium <- artwork %>%
   group_by(decade)%>%
   mutate(pct=n/sum(n))%>%
   ungroup()
- 
-```
 
+```
 
 ```{r}
  by_decade_medium%>%
   ggplot(aes(decade, n , fill=medium))+
   geom_area()
 ```
-
 
 ```{r}
 by_decade_medium%>%
@@ -95,7 +91,6 @@ by_decade_medium%>%
        y= "% of Tate Modern pieces",
        fill = "Medium(without on..)")
 ```
-
 
 ```{r}
 by_decade_medium%>%
@@ -110,7 +105,6 @@ by_decade_medium%>%
        y= "% of Tate Modern pieces",
        fill = "Medium(without on..)")
 ```
-
 
 ```{r}
 artwork_size<-artwork %>%
@@ -155,6 +149,7 @@ artwork_size%>%
   geom_area()
 
 ```
+
 ```{r}
 size_by_decade<- artwork_size%>%
   group_by(decade=round(year,-1))%>%
@@ -162,15 +157,16 @@ size_by_decade<- artwork_size%>%
             median_area=median(area),
             n=n())%>%
   filter(decade>=1700)
-  
+
 size_by_decade%>%
   ggplot(aes(decade,median_ratio))+
   geom_line()+
   geom_point(aes(size=n))+
   labs(x="decade",
        y="median ratio(width/height")
-  
+
 ```
+
 ```{r}
 size_by_decade%>%
   ggplot(aes(decade,median_area))+
@@ -179,6 +175,7 @@ size_by_decade%>%
   labs(x="decade",
        y="median area in metres^2 ")
 ```
+
 ```{r}
 artwork_size%>%
   group_by(artist)%>%
@@ -207,6 +204,7 @@ artwork_size %>%
        subtitle = "For the 25 most common artists in the Tate")
 
 ```
+
 ```{r}
 library(ggridges)
 artwork_size %>%
