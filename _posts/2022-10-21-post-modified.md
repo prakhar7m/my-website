@@ -9,7 +9,7 @@ tags:
   - r
   - statistics
 ---
-Tate Modern is an art gallery located in London. It is one of the largest museums of modern and contemporary art in the world.
+Tate Modern is an art gallery located in London. It is one of the largest museums of modern and contemporary art in the world. It holds the nation's collection of modern art from 16th century to the present day. 
 
 <img src="{{site.baseurl | prepend: site.url}}images/tate.png" alt="Untitled" />
 
