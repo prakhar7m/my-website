@@ -1,29 +1,286 @@
 ---
-title: "Welcome to Jekyll!"
-date: 2019-04-18T15:34:30-04:00
+title: "Analyzing Netflix Titles"
+description: "Description"
 categories:
-  - blog
+  - r
+  - Data Analysis
 tags:
-  - Jekyll
-  - update
+  - r
+  - statistics
 ---
 
-You'll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
-
-To add new posts, simply add a file in the `_posts` directory that follows the convention `YYYY-MM-DD-name-of-post.ext` and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.
-
-Jekyll also offers powerful support for code snippets:
-
 ```ruby
-def print_hi(name)
-  puts "Hi, #{name}"
-end
-print_hi('Tom')
-#=> prints 'Hi, Tom' to STDOUT.
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(tidytuesdayR)
+library(scales)
+theme_set(theme_light())
 ```
 
-Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
+# Load the weekly Data
 
-[jekyll-docs]: https://jekyllrb.com/docs/home
-[jekyll-gh]:   https://github.com/jekyll/jekyll
-[jekyll-talk]: https://talk.jekyllrb.com/
+Dowload the weekly data and make available in the `tt` object.
+
+```ruby
+library(lubridate)
+tt <- tt_load("2021-04-20")
+netflix_titles <- tt$netflix_titles %>%
+  separate(duration, c("duration", "duration_units"), sep = " ", convert = TRUE) %>%
+  mutate(date_added = mdy(date_added),
+         year_added = year(date_added)) %>%
+  mutate(mature = rating %in% c("TV-MA", "R", "NC-17"))
+```
+
+```ruby
+netflix_titles %>%
+  ggplot(aes(release_year, fill = type)) +
+  geom_histogram(binwidth = 5) +
+  facet_wrap(~ type, ncol = 1, scales = "free_y")
+netflix_titles %>%
+  #count(year = 2 * (release_year %/% 2), type) %>%
+  count(year = release_year, type) %>%
+  group_by(type) %>%
+  mutate(percent = n / sum(n)) %>%
+  ggplot(aes(year, percent, color = type)) +
+  geom_line()
+```
+
+
+```ruby
+netflix_titles %>%
+  filter(type == "Movie") %>%
+  mutate(decade = 10 * (release_year %/% 10)) %>%
+  ggplot(aes(decade, duration, group = decade)) +
+  geom_boxplot()
+```
+
+
+```ruby
+summarize_titles <- function(tbl) {
+  tbl %>%
+    summarize(n = n(),
+              median_duration = median(duration),
+              median_year = median(release_year)) %>%
+    arrange(desc(n))
+}
+```
+
+
+```ruby
+netflix_titles %>%
+  count(rating, sort = TRUE)
+netflix_titles %>%
+  separate_rows(listed_in, sep = ", ") %>%
+  group_by(type, genre = listed_in) %>%
+  summarize_titles() %>%
+  filter(type == "Movie") %>%
+  filter(genre != "Movies") %>%
+  mutate(genre = fct_reorder(genre, median_duration)) %>%
+  ggplot(aes(median_duration, genre)) +
+  geom_col()
+```
+
+
+```ruby
+head(netflix_titles$date_added)
+```
+
+
+```ruby
+netflix_titles %>%
+  filter(!is.na(date_added)) %>%
+  arrange(date_added) %>%
+  select(type, title, date_added)
+netflix_titles %>%
+  filter(!is.na(date_added)) %>%
+  count(year_added, type) %>%
+  ggplot(aes(year_added, n, fill = type)) +
+  geom_area()
+```
+
+```ruby
+netflix_titles %>%
+  filter(year_added >= 2015) %>%
+  filter(!is.na(date_added), !is.na(rating)) %>%
+  mutate(rating = fct_lump(rating, 5)) %>%
+  ungroup() %>%
+  count(type, year_added, rating) %>%
+  group_by(type, year_added) %>%
+  mutate(percent = n / sum(n)) %>%
+  ggplot(aes(year_added, percent, fill = rating)) +
+  geom_area() +
+  facet_wrap(~ type)
+```
+
+
+```ruby
+netflix_titles %>%
+  filter(!is.na(country)) %>%
+  count(country = fct_lump(country, 20),
+        type,
+        sort = TRUE) %>%
+  mutate(country = fct_reorder(country, n)) %>%
+  ggplot(aes(n, country, fill = type)) +
+  geom_col()
+netflix_titles %>%
+  filter(!is.na(country)) %>%
+  filter(type == "Movie") %>%
+  group_by(country) %>%
+  summarize_titles()
+```
+
+```ruby
+netflix_titles %>%
+  filter(rating %in% c("R", "TV-MA")) %>%
+  count(country, sort = TRUE)
+netflix_titles %>%
+  filter(!is.na(rating), !is.na(country)) %>%
+  group_by(type, country = fct_lump(country, 9)) %>%
+  summarize(n_mature = sum(rating %in% c("R", "TV-MA", "NC-17")),
+            n = n(),
+            .groups = "drop") %>%
+  mutate(pct_mature = n_mature / n,
+         conf_low = qbeta(.025, n_mature + .5, n - n_mature + .5),
+         conf_high = qbeta(.975, n_mature + .5, n - n_mature + .5)) %>%
+  ggplot(aes(pct_mature, country, color = type)) +
+  geom_point(aes(size = n)) +
+  geom_errorbar(aes(xmin = conf_low, xmax = conf_high), width = .1) +
+  scale_x_continuous(labels = percent) +
+  expand_limits(x = 0) +
+  labs(x = "% of titles that are R/TV-MA")
+```
+
+
+```ruby
+library(tidytext)
+library(snakecase)
+library(tidylo)
+words_unnested <- netflix_titles %>%
+  unnest_tokens(word, description) %>%
+  anti_join(stop_words, by = "word")
+words_unnested %>%
+  count(type, word, sort = TRUE) %>%
+  mutate(type = to_snake_case(type)) %>%
+  spread(type, n, fill = 0) %>%
+  mutate(total = movie + tv_show) %>%
+  arrange(desc(total)) %>%
+  head(100) %>%
+  ggplot(aes(movie, tv_show)) +
+  geom_point() +
+  geom_text(aes(label = word) , vjust = 1, hjust = 1) +
+  scale_x_log10() +
+  scale_y_log10()
+```
+
+
+```ruby
+words_unnested %>%
+  count(type, word) %>%
+  bind_log_odds(type, word, n) %>%
+  arrange(desc(log_odds_weighted)) %>%
+  group_by(type) %>%
+  top_n(10, log_odds_weighted) %>%
+  ungroup() %>%
+  mutate(word = fct_reorder(word, log_odds_weighted)) %>%
+  ggplot(aes(log_odds_weighted, word)) +
+  geom_col() +
+  facet_wrap(~ type, scales = "free_y")
+```
+
+
+```ruby
+library(widyr)
+library(tidygraph)
+library(ggraph)
+set.seed(2021)
+words_unnested %>%
+  distinct(type, title, word) %>%
+  add_count(word, name = "word_total") %>%
+  filter(word_total >= 40) %>%
+  pairwise_cor(word, title, sort = TRUE) %>%
+  filter(correlation >= .1) %>%
+  igraph::graph_from_data_frame() %>%
+  ggraph(layout = "fr") +
+  geom_edge_link(aes(alpha = correlation)) +
+  geom_node_point() +
+  geom_node_text(aes(label = name),
+                 repel = TRUE) +
+  theme(legend.position = "none")
+```
+
+
+```ruby
+word_genre_log_odds <- words_unnested %>%
+  distinct(type, title, word, genre = listed_in) %>%
+  add_count(word, name = "word_total") %>%
+  filter(word_total >= 25) %>%
+  separate_rows(genre, sep = ", ") %>%
+  filter(fct_lump(genre, 9) != "Other") %>%
+  count(genre, word) %>%
+  bind_log_odds(genre, word, n)
+```
+
+
+```ruby
+word_genre_log_odds %>%
+  group_by(genre) %>%
+  top_n(10, log_odds_weighted) %>%
+  ungroup() %>%
+  mutate(word = reorder_within(word, log_odds_weighted, genre)) %>%
+  ggplot(aes(log_odds_weighted, word, fill = genre)) +
+  geom_col() +
+  facet_wrap(~ genre, scales = "free_y") +
+  scale_y_reordered() +
+  theme(legend.position = "none") +
+  labs(x = "Log-odds of word's specificity to genre",
+       y = "")
+```
+
+## Lasso regression
+
+```ruby
+word_ratings <- words_unnested %>%
+  count(type, title, rating, word) %>%
+  filter(!is.na(rating)) %>%
+  add_count(word, name = "word_total") %>%
+  filter(word_total >= 30)
+```
+
+
+```ruby
+library(glmnet)
+library(broom)
+other_features <- netflix_titles %>%
+  select(title, director, cast, genre = listed_in, country) %>%
+  gather(feature_type, feature, director, cast, genre, country) %>%
+  filter(!is.na(feature)) %>%
+  separate_rows(feature, sep = ", ") %>%
+  mutate(feature_type = str_to_title(feature_type)) %>%
+  unite(feature, feature_type, feature, sep = ": ") %>%
+  add_count(feature, name = "feature_count") %>%
+  filter(feature_count >= 10)
+feature_matrix <- word_ratings %>%
+  mutate(feature = paste("Description:", word)) %>%
+  bind_rows(other_features) %>%
+  cast_sparse(title, feature)
+
+
+y <- netflix_titles$mature[match(rownames(feature_matrix), netflix_titles$title)]
+mod <- cv.glmnet(feature_matrix, y, family = "binomial")
+plot(mod)
+```
+
+
+```ruby
+mod$glmnet.fit %>%
+  tidy() %>%
+  separate(term, c("feature_type", "feature"), sep = ": ") %>%
+  filter(lambda == mod$lambda.1se) %>%
+  top_n(60, abs(estimate)) %>%
+  mutate(feature = fct_reorder(feature, estimate)) %>%
+  ggplot(aes(estimate, feature, fill = feature_type)) +
+  geom_col() +
+  labs(x = "Coefficient: does this make the title more likely to be TV-MA/R?",
+       y = "",
+       fill = "Feature Type")
+```
