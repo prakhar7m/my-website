@@ -18,9 +18,6 @@ library(scales)
 theme_set(theme_light())
 ```
 
-# Load the weekly Data
-
-Dowload the weekly data and make available in the `tt` object.
 
 ```ruby
 tt <- tt_load("2021-04-06")
