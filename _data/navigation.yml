@@ -1,10 +1,4 @@
 main:
-  - title: "Projects"
-    url: /projects/
-  - title: "Blog"
-    url: /blog/
-  - title: "Categories"
-    url: /categories/
   - title: "About"
     url: /about/ 
    
