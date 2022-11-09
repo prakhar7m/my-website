@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "Analyzing Art Collections at Tate Art Museum in R"
 description: "Over this summer I've competed in the SLICED ML competition, where contestants have two hours to create a Kaggle submission. I share what I learned about competitive machine learning and R."
 categories:
@@ -12,6 +11,13 @@ tags:
 Tate Modern is an art gallery located in London. It is one of the largest museums of modern and contemporary art in the world. It holds the nation's collection of modern art from 16th century to the present day. 
 
 <img src="{{site.baseurl | prepend: site.url}}images/tate.png" alt="Untitled" />
+
+### Dataset Description
+
+The dataset used in this project is released by Tate Museum. As per the description the dataset contains metadata for 70,000 artworks owned by Tate Museum. It also includes the metadata for around 3500 artists. The dataset comes in 2 forms: two CSV files that includes the artists and artworks and a huge number of text files that holds the records in JSON format. Compared to CSV files, the JSON data is comprehensive, as it is easier to organize and store the data of a range of topics but not limited to “people”, “natural phenomena”, “emotions, concepts and ideas”. For this analysis, I have used the CSV files which can be imported directly in the Rstudio using ```ruby tidytuesdayR``` package.
+The ["Art Collections Dataset"](https://github.com/rfordatascience/tidytuesday/tree/master/data/2021/2021-01-12/)
+
+### Getting Started with the Analysis
 
 ```ruby
 knitr::opts_chunk$set(echo = TRUE)
