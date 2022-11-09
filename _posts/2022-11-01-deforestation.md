@@ -28,17 +28,6 @@ tt$forest %>%
 ```
 
 ```ruby
-tt$forest_area %>%
-  filter(entity == "United States") %>%
-  ggplot(aes(year, forest_area)) +
-  geom_line() +
-  expand_limits(y = 0)
-```
-<img src="{{site.baseurl | prepend: site.url}}images/deforestation/unnamed-chunk-1-1.png" alt="Untitled" />
-
-
-
-```ruby
 forest_area_country <- tt$forest_area %>%
   filter(str_length(code) == 3,
          year >= 1992) %>%
