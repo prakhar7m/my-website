@@ -1,6 +1,7 @@
 ---
+layout: post
 title: "Analyzing Art Collections at Tate Art Museum in R"
-description: "Description"
+description: "Over this summer I've competed in the SLICED ML competition, where contestants have two hours to create a Kaggle submission. I share what I learned about competitive machine learning and R."
 categories:
   - r
   - Data Analysis
