@@ -1,8 +1,9 @@
 ---
-title: Blog
+title: Posts
 layout: collection
 permalink: /blog/
 collection: blog
-entries_layout: list
+entries_layout: grid
+classes: wide
 ---
 
