@@ -235,4 +235,3 @@ map_data("world") %>%
 ```
 <img src="{{site.baseurl | prepend: site.url}}images/deforestation/unnamed-chunk-12-1.png" alt="Untitled" />
 
-<img src="{{site.baseurl | prepend: site.url}}images/deforestation/unnamed-chunk-13-1.png" alt="Untitled" />
