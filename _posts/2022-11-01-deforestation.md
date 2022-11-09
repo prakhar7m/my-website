@@ -8,7 +8,7 @@ tags:
   - r
   - statistics
 ---
-
+<img src="{{site.baseurl | prepend: site.url}}images/deforestation/cover.jpg" alt="Untitled" />
 
 ```ruby
 knitr::opts_chunk$set(echo = TRUE)
@@ -34,7 +34,10 @@ tt$forest_area %>%
   geom_line() +
   expand_limits(y = 0)
 ```
+<img src="{{site.baseurl | prepend: site.url}}images/deforestation/unnamed-chunk-1-1.png" alt="Untitled" />
 
+
+<img src="{{site.baseurl | prepend: site.url}}images/deforestation/unnamed-chunk-2-1.png" alt="Untitled" />
 ```ruby
 forest_area_country <- tt$forest_area %>%
   filter(str_length(code) == 3,
@@ -55,6 +58,7 @@ forest_area_country %>%
   labs(x = "Year",
        y = "% of global forest area")
 ```
+<img src="{{site.baseurl | prepend: site.url}}images/deforestation/unnamed-chunk-3-1.png" alt="Untitled" />
 
 ```ruby
 forest_area_country %>%
@@ -75,6 +79,7 @@ forest_area_country %>%
   spread(year, forest_area) %>%
   arrange(desc(forest_area_1992))
 ```
+<img src="{{site.baseurl | prepend: site.url}}images/deforestation/unnamed-chunk-4-1.png" alt="Untitled" />
 
 ```ruby
 forest %>%
@@ -94,6 +99,7 @@ forest %>%
        y = "")
 
 ```
+<img src="{{site.baseurl | prepend: site.url}}images/deforestation/unnamed-chunk-5-1.png" alt="Untitled" />
 
 ```ruby
 library(tidytext)
@@ -113,6 +119,7 @@ forest %>%
        y = "")
 
 ```
+<img src="{{site.baseurl | prepend: site.url}}images/deforestation/unnamed-chunk-6-1.png" alt="Untitled" />
 
 ```ruby
 forest %>%
@@ -126,6 +133,7 @@ forest %>%
   scale_y_continuous(labels = comma) +
   labs(y = "Net change in forest (hectares)")
 ```
+<img src="{{site.baseurl | prepend: site.url}}images/deforestation/unnamed-chunk-7-1.png" alt="Untitled" />
 
 ```ruby
 brazil_loss <- tt$brazil_loss %>%
@@ -144,6 +152,7 @@ brazil_loss %>%
        y = "")
 
 ```
+<img src="{{site.baseurl | prepend: site.url}}images/deforestation/unnamed-chunk-8-1.png" alt="Untitled" />
 
 ```ruby
 brazil_loss %>%
@@ -154,6 +163,7 @@ brazil_loss %>%
   labs(y = "Loss of forest (hectares)",
        x = "")
 ```
+<img src="{{site.baseurl | prepend: site.url}}images/deforestation/unnamed-chunk-9-1.png" alt="Untitled" />
 
 ```ruby
 brazil_loss %>%
@@ -167,6 +177,7 @@ brazil_loss %>%
   labs(y = "Loss of forest (hectares)",
        x = "")
 ```
+<img src="{{site.baseurl | prepend: site.url}}images/deforestation/unnamed-chunk-10-1.png" alt="Untitled" />
 
 ```ruby
 soybean_use <- tt$soybean_use %>%
@@ -190,6 +201,7 @@ soybean_use %>%
        fill = "") +
   facet_wrap(~ country)
 ```
+<img src="{{site.baseurl | prepend: site.url}}images/deforestation/unnamed-chunk-11-1.png" alt="Untitled" />
 
 ```ruby
 vegetable_oil %>%
@@ -203,6 +215,7 @@ vegetable_oil %>%
   scale_y_continuous(labels = comma) +
   facet_wrap(~ country)
 ```
+<img src="{{site.baseurl | prepend: site.url}}images/deforestation/unnamed-chunk-12-1.png" alt="Untitled" />
 
 ```ruby
 library(fuzzyjoin)
@@ -221,3 +234,5 @@ map_data("world") %>%
   theme_map() +
   labs(fill = "Net forest change (2010)")
 ```
+
+<img src="{{site.baseurl | prepend: site.url}}images/deforestation/unnamed-chunk-13-1.png" alt="Untitled" />
