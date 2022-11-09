@@ -9,10 +9,10 @@
 $doc-font-size: 14.5 !default;
 
 /* paragraph indention */
-$paragraph-indent: false !default; // true, false (default)
+$paragraph-indent: true !default; // true, false (default)
 $indent-var: 1.3em !default;
 $serif: "PT Serif", Georgia, Times, serif;
-$sans-serif-narrow: "PT Sans Narrow", -apple-system, BlinkMacSystemFont,
+$sans-serif-narrow: "Roboto", -apple-system, BlinkMacSystemFont,
   "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif;
 /* system typefaces */
 
