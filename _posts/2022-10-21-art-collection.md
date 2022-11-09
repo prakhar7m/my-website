@@ -14,11 +14,11 @@ Tate Modern is an art gallery located in London. It is one of the largest museum
 
 ### Dataset Description
 
-The dataset used in this project is released by Tate Museum. As per the description the dataset contains metadata for 70,000 artworks owned by Tate Museum. It also includes the metadata for around 3500 artists. 
+The [```"Art Collections Dataset"```](https://github.com/rfordatascience/tidytuesday/tree/master/data/2021/2021-01-12/) used in this project is released by Tate Museum. As per the description the dataset contains metadata for 70,000 artworks owned by Tate Museum. It also includes the metadata for around 3500 artists. 
 
 The dataset comes in 2 forms: two CSV files that includes the artists and artworks and a huge number of text files that holds the records in JSON format. Compared to CSV files, the JSON data is comprehensive, as it is easier to organize and store the data of a range of topics but not limited to “people”, “natural phenomena”, “emotions, concepts and ideas”. 
 
-For this analysis, I have used the CSV files which can be imported directly in the Rstudio using ```tidytuesdayR``` package. The [```"Art Collections Dataset"```](https://github.com/rfordatascience/tidytuesday/tree/master/data/2021/2021-01-12/)
+For this analysis, I have used the CSV files which can be imported directly in the Rstudio using ```tidytuesdayR``` package. 
 
 ### Getting Started with the Analysis
 
